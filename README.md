@@ -1,2 +1,19 @@
-# 372-spring-project-k3ny-dg
-372-spring-project-k3ny-dg created by GitHub Classroom
+Project Name
+---
+---
+Author: Keny Dutton-Gillespie\
+Class: SDEV 372\
+Winter 2023 Quarter
+---
+Milestones
+
+* Project Creation
+* Writing a Web API
+* Consuming a Web API
+* Integrating Public APIs
+* Deploying to the Cloud
+
+-----
+Project Description
+--
+
