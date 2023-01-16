@@ -1,5 +1,6 @@
-Project Name
+UFO Sightings
 ---
+<img src="src/main/java/resources/static/images/ufo_wiki.jpeg">
 ---
 Author: Keny Dutton-Gillespie\
 Class: SDEV 372\
@@ -15,5 +16,9 @@ Milestones
 
 -----
 Project Description
+
+This site will take in data from a corgis dataset 
+with information about ufo sightings including times, 
+locations, and descriptions. 
 --
 
