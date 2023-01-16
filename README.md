@@ -1,6 +1,6 @@
 UFO Sightings
 ---
-<img src="src/main/java/resources/static/images/ufo_wiki.jpeg">
+<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1e/Supposed_UFO%2C_Passaic%2C_New_Jersey_%28cropped%29.jpg/1200px-Supposed_UFO%2C_Passaic%2C_New_Jersey_%28cropped%29.jpg">
 ---
 Author: Keny Dutton-Gillespie\
 Class: SDEV 372\
