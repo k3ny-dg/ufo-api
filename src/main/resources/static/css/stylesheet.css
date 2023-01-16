@@ -1,0 +1,17 @@
+body{
+    background-color: black;
+    color: lime;
+    align-content: center;
+}
+
+#cow_ufo{
+    width: 300px;
+}
+
+.center {
+    margin: auto;
+    width: 50%;
+    border: 3px solid limegreen;
+    padding: 10px;
+    text-align: center;
+}
