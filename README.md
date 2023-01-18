@@ -1,4 +1,4 @@
-# UFO Sightings
+UFO Sightings
 ---
 <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1e/Supposed_UFO%2C_Passaic%2C_New_Jersey_%28cropped%29.jpg/1200px-Supposed_UFO%2C_Passaic%2C_New_Jersey_%28cropped%29.jpg" width="300px">
 
