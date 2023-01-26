@@ -14,6 +14,6 @@ public class UFO
     private int id;
     private String shape;
     private String description;
-    private float encounterLength;
+    private double encounterLength;
 
 }

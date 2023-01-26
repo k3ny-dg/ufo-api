@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class Dates
+public class Date
 {
     private int yearSighted;
     private int monthSighted;

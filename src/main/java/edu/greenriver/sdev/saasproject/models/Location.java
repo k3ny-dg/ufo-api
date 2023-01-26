@@ -14,8 +14,8 @@ public class Location
     private String city;
     private String state;
     private String country;
-    private float latitude;
-    private float longitude;
+    private double latitude;
+    private double longitude;
 
     public String getCity()
     {
@@ -47,22 +47,22 @@ public class Location
         this.country = country;
     }
 
-    public float getLatitude()
+    public double getLatitude()
     {
         return latitude;
     }
 
-    public void setLatitude(float latitude)
+    public void setLatitude(double latitude)
     {
         this.latitude = latitude;
     }
 
-    public float getLongitude()
+    public double getLongitude()
     {
         return longitude;
     }
 
-    public void setLongitude(float longitude)
+    public void setLongitude(double longitude)
     {
         this.longitude = longitude;
     }
