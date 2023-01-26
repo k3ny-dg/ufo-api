@@ -3,11 +3,13 @@ package edu.greenriver.sdev.saasproject.services;
 import edu.greenriver.sdev.saasproject.models.Date;
 import edu.greenriver.sdev.saasproject.models.Location;
 import edu.greenriver.sdev.saasproject.models.UFO;
+import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Service
 public class UFOService
 {
     private List<UFO> ufos = new ArrayList<>(List.of(
