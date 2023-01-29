@@ -179,7 +179,7 @@ public class UFOService
     }
 
     // PUT requests (update)
-    public void updateUFO(UFO updatedUFO)
+    public UFO updateUFO(UFO updatedUFO)
     {
         UFO found = findUFOById(updatedUFO.getId());
         if (found != null)
@@ -188,9 +188,10 @@ public class UFOService
             found.setDescription(updatedUFO.getDescription());
             found.setEncounterLength(updatedUFO.getEncounterLength());
         }
+        return updatedUFO;
     }
 
-    public void updateLocation(Location updatedLocation)
+    public Location updateLocation(Location updatedLocation)
     {
         Location found = findLocByCoordinates(updatedLocation.getLatitude(),
                 updatedLocation.getLongitude());
@@ -200,9 +201,10 @@ public class UFOService
             found.setState(updatedLocation.getState());
             found.setCountry(updatedLocation.getCountry());
         }
+        return updatedLocation;
     }
 
-    public void updateDate(Date updatedDate)
+    public Date updateDate(Date updatedDate)
     {
         Date found = findDateByDate(updatedDate.getYearSighted(),
                 updatedDate.getMonthSighted(), updatedDate.getDaySighted());
@@ -211,6 +213,7 @@ public class UFOService
             found.setHourSighted(updatedDate.getHourSighted());
             found.setMinuteSighted(updatedDate.getMinuteSighted());
         }
+        return updatedDate;
     }
 
     // DELETE requests (delete)
@@ -242,6 +245,23 @@ public class UFOService
                         .filter(date -> date.getDaySighted() == day)
                         .toList()
         );
+    }
+
+    public boolean isValidUFO(UFO ufo)
+    {
+        return ufo.getId() != 0;
+    }
+
+    public boolean isValidLocation(Location location)
+    {
+        return location.getLatitude() != 0 && location.getLongitude() !=0;
+    }
+
+    public boolean isValidDate(Date date)
+    {
+        return date.getDaySighted() > 0 && date.getDaySighted() < 32
+                && date.getMonthSighted() > 0 && date.getMonthSighted() < 13
+                && date.getYearSighted() < 2023 && date.getYearSighted() > 1900;
     }
 
 }
