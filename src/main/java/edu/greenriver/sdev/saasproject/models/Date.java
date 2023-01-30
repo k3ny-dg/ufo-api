@@ -16,6 +16,17 @@ public class Date
     private int daySighted;
     private int hourSighted;
     private int minuteSighted;
+    private String findValue;
+
+    public String getFindValue()
+    {
+        return findValue;
+    }
+
+    public void setFindValue(String value)
+    {
+        this.findValue = value;
+    }
 
     public int getYearSighted()
     {

@@ -8,7 +8,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.lang.annotation.Repeatable;
 import java.util.List;
 
 @RestController
@@ -25,10 +24,21 @@ public class UFOAPI
     // GET (READ)
 
     //http://localhost:8080/ufos
-    @GetMapping("")
+    @GetMapping("/all")
     public ResponseEntity<List<UFO>> allUFOs()
     {
         return new ResponseEntity<>(service.allUFOs(), HttpStatus.OK);
+    }
+
+    @GetMapping("/locations")
+    public ResponseEntity<List<Location>> allLoc()
+    {
+        return new ResponseEntity<>(service.allLocations(), HttpStatus.OK);
+    }
+    @GetMapping("/encounters")
+    public ResponseEntity<List<Date>> allDates()
+    {
+        return new ResponseEntity<>(service.allDates(), HttpStatus.OK);
     }
 
     @GetMapping("{id}")
@@ -43,29 +53,32 @@ public class UFOAPI
         return new ResponseEntity<>(service.findUFOById(id), HttpStatus.OK);
     }
 
-    @GetMapping("location/{latitude}-{longitude}")
-    public ResponseEntity<Location>locationByCoordinates(@PathVariable int latitude,
-                                          @PathVariable int longitude)
+    @GetMapping("locations/{city}")
+    public ResponseEntity<Location>locationByCity(@PathVariable String city)
     {
         // if there is no coordinates match - 404
-        if(service.findLocByCoordinates(latitude, longitude) == null)
+        if(service.findLocByCity(city) == null)
         {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         // if there is a coordinates match - 200
-        return new ResponseEntity<>(service.findLocByCoordinates(latitude, longitude), HttpStatus.OK);
+        return new ResponseEntity<>(service.findLocByCity(city), HttpStatus.OK);
     }
 
-    @GetMapping("date/{year}-{month}-{day}")
-    public ResponseEntity<Date> dateByDate(@PathVariable int year, int month, int day)
+    /**
+     * @param findValue
+     * @return
+     */
+    @GetMapping("encounters/{findValue}")
+    public ResponseEntity<Date> dateByDate(@PathVariable String findValue)
     {
-        // if there is no date match - 404
-        if(service.findDateByDate(year, month, day) != null)
+         // if there is no date match - 404
+        if(service.findDateByValue(findValue) == null)
         {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         // if there is a date match - 200
-        return new ResponseEntity<>(service.findDateByDate(year, month, day), HttpStatus.OK);
+        return new ResponseEntity<>(service.findDateByValue(findValue), HttpStatus.OK);
     }
 
     // POST (CREATE)
@@ -73,7 +86,7 @@ public class UFOAPI
     public ResponseEntity<UFO> addUFO(@RequestBody UFO ufo)
     {
         // if the input is not a valid date - 400
-        if(service.isValidUFO(ufo))
+        if(!service.isValidUFO(ufo))
         {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
@@ -107,7 +120,7 @@ public class UFOAPI
     }
 
     // PUT (UPDATE)
-    @PutMapping("")
+    @PutMapping("update-ufo")
     public ResponseEntity<UFO> updateUFO(@RequestBody UFO updatedUFO)
     {
         if(service.findUFOById(updatedUFO.getId()) == null)
@@ -115,19 +128,15 @@ public class UFOAPI
             // if the id cannot be found - 404
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        else if (!service.isValidUFO(updatedUFO))
-        {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
         // if the id is found - 200
         return new ResponseEntity<>(service.updateUFO(updatedUFO),HttpStatus.OK);
     }
 
-    @PutMapping("")
+    @PutMapping("update-loc")
     public ResponseEntity<Location> updateLocation(@RequestBody Location updatedLoc)
     {
         // if you can't find the location by its coordinates
-        if(service.findLocByCoordinates(updatedLoc.getLatitude(), updatedLoc.getLongitude()) == null)
+        if(service.findLocByCity(updatedLoc.getCity()) == null)
         {
             // return - 404
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -143,12 +152,11 @@ public class UFOAPI
         return new ResponseEntity<>(service.updateLocation(updatedLoc), HttpStatus.OK);
     }
 
-    @PutMapping("")
+    @PutMapping("update-date")
     public ResponseEntity<Date> updateDate(@RequestBody Date updatedDate)
     {
         // if you can't find the date by the day/mo/year
-        if(service.findDateByDate(updatedDate.getDaySighted(), updatedDate.getMonthSighted(),
-                updatedDate.getYearSighted()) == null)
+        if(service.findDateByValue(updatedDate.getFindValue()) == null)
         {
             // return - 404
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -163,8 +171,12 @@ public class UFOAPI
         return new ResponseEntity<>(service.updateDate(updatedDate), HttpStatus.OK);
     }
 
+    /**
+     * @param ufoId
+     * @return
+     */
     // DELETE (DELETE)
-    @DeleteMapping("")
+    @DeleteMapping("/del/{ufoId}")
     public ResponseEntity<Integer> deleteUFO(@PathVariable int ufoId)
     {
         if(service.findUFOById(ufoId) == null)
@@ -178,32 +190,31 @@ public class UFOAPI
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    public ResponseEntity<Location> deleteLocation(@PathVariable double latitude,
-                               @PathVariable double longitude)
+    @DeleteMapping("/del-loc/{city}")
+    public ResponseEntity<Location> deleteLocation(@PathVariable String city)
     {
         // if the location coordinates cannot be found - 404
-        if(service.findLocByCoordinates(latitude,longitude) == null)
+        if(service.findLocByCity(city) == null)
         {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         // if it was found
         // delete the given location and return - 200
-        service.deleteLocation(latitude, longitude);
+        service.deleteLocation(city);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    public ResponseEntity<Date> deleteDate(@PathVariable int year,
-                           @PathVariable int month,
-                           @PathVariable int day)
+    @DeleteMapping("del-date/{findValue}")
+    public ResponseEntity<Date> deleteDate(@PathVariable String findValue)
     {
     // if the location coordinates cannot be found - 404
-        if(service.findDateByDate(year, month, day) == null)
+        if(service.findDateByValue(findValue) == null)
     {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
         // if it was found
         // delete the given date and return - 200
-        service.deleteEncounterDate(year, month, day);
+        service.deleteEncounterDate(findValue);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 

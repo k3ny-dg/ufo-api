@@ -77,6 +77,7 @@ public class UFOService
                     .daySighted(24)
                     .hourSighted(18)
                     .minuteSighted(30)
+                    .findValue("200505241830")
                     .build(),
             Date.builder()
                     .yearSighted(2000)
@@ -84,6 +85,7 @@ public class UFOService
                     .daySighted(31)
                     .hourSighted(21)
                     .minuteSighted(0)
+                    .findValue("20001231210")
                     .build(),
             Date.builder()
                     .yearSighted(1984)
@@ -91,6 +93,7 @@ public class UFOService
                     .daySighted(21)
                     .hourSighted(21)
                     .minuteSighted(0)
+                    .findValue("198401212100")
                     .build(),
             Date.builder()
                     .yearSighted(2011)
@@ -98,12 +101,30 @@ public class UFOService
                     .daySighted(23)
                     .hourSighted(5)
                     .minuteSighted(13)
+                    .findValue("20110223513")
                     .build()
     ));
 
     // GET requests (read)
-    public List<UFO> allUFOs() {
+    public List<UFO> allUFOs()
+    {
         return ufos;
+    }
+
+    public List<Location> allLocations()
+    {
+        return locations;
+    }
+
+    public List<Date> allDates()
+    {
+        return encounterDates;
+    }
+    public List<Location> recordedLocations(){
+        return locations;
+    }
+    public List<Date> encounterDates(){
+        return encounterDates;
     }
 
     public UFO findUFOById(int id){
@@ -112,28 +133,19 @@ public class UFOService
                 .orElse(null);
     }
 
-    public Location findLocByCoordinates(double latitude, double longitude){
-        return locations.stream().filter(location -> location.getLatitude() == latitude)
-                .filter(location -> location.getLongitude() == longitude)
+    public Location findLocByCity(String city){
+        return locations.stream().filter(location -> location.getCity().equalsIgnoreCase(city))
                 .findFirst()
                 .orElse(null);
     }
 
-    public Date findDateByDate(int year, int month, int day)
+    public Date findDateByValue(String findValue)
     {
-        return encounterDates.stream().filter(date -> date.getYearSighted() == year)
-                .filter(date -> date.getMonthSighted() == month)
-                .filter(date -> date.getDaySighted() == day)
+        return encounterDates.stream().filter(date -> date.getFindValue().equals(findValue))
                 .findFirst()
                 .orElse(null);
     }
 
-    public List<Location> recordedLocations(){
-        return locations;
-    }
-    public List<Date> encounterDates(){
-        return encounterDates;
-    }
 
     // POST requests (create)
     public UFO addUFO(UFO newUFO){
@@ -172,9 +184,9 @@ public class UFOService
 
     public void addEncounterDate(@RequestParam int yearSighted, @RequestParam int monthSighted,
                                  @RequestParam int daySighted, @RequestParam int hourSighted,
-                                 @RequestParam int minuteSighted)
+                                 @RequestParam int minuteSighted, @RequestParam String findValue)
     {
-        Date date = new Date(yearSighted, monthSighted, daySighted, hourSighted, minuteSighted);
+        Date date = new Date(yearSighted, monthSighted, daySighted, hourSighted, minuteSighted, findValue);
         encounterDates.add(date);
     }
 
@@ -193,8 +205,7 @@ public class UFOService
 
     public Location updateLocation(Location updatedLocation)
     {
-        Location found = findLocByCoordinates(updatedLocation.getLatitude(),
-                updatedLocation.getLongitude());
+        Location found = findLocByCity(updatedLocation.getCity());
         if (found != null)
         {
             found.setCity(updatedLocation.getCity());
@@ -206,10 +217,12 @@ public class UFOService
 
     public Date updateDate(Date updatedDate)
     {
-        Date found = findDateByDate(updatedDate.getYearSighted(),
-                updatedDate.getMonthSighted(), updatedDate.getDaySighted());
+        Date found = findDateByValue(updatedDate.getFindValue());
         if (found != null)
         {
+            found.setYearSighted(updatedDate.getYearSighted());
+            found.setMonthSighted(updatedDate.getMonthSighted());
+            found.setDaySighted(updatedDate.getDaySighted());
             found.setHourSighted(updatedDate.getHourSighted());
             found.setMinuteSighted(updatedDate.getMinuteSighted());
         }
@@ -221,28 +234,25 @@ public class UFOService
     {
         ufos = new ArrayList<>(
                 ufos.stream().
-                        filter(ufo -> ufo.getId() == id)
+                        filter(ufo -> ufo.getId() != id)
                         .toList()
         );
     }
 
-    public void deleteLocation(double latitude, double longitude)
+    public void deleteLocation(String city)
     {
         locations = new ArrayList<>(
                 locations.stream().
-                        filter(location -> location.getLatitude() == latitude)
-                        .filter(location -> location.getLongitude() == longitude)
+                        filter(location -> !location.getCity().equalsIgnoreCase(city))
                         .toList()
         );
     }
 
-    public void deleteEncounterDate(int year, int month, int day)
+    public void deleteEncounterDate(String findValue)
     {
         encounterDates = new ArrayList<>(
                 encounterDates.stream()
-                        .filter(date -> date.getYearSighted() == year)
-                        .filter(date -> date.getMonthSighted() == month)
-                        .filter(date -> date.getDaySighted() == day)
+                        .filter(date -> !date.getFindValue().equals(findValue))
                         .toList()
         );
     }
