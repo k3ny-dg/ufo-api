@@ -9,9 +9,18 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Creates a service layer for the UFO API
+ * @author Keny Dutto-Gillespie
+ * @version 1.0
+ */
 @Service
 public class UFOService
 {
+    public static final int NUM_DAYS_MONTH = 31;
+    public static final int NO_MO_YEAR = 12;
+    public static final int LATEST_YEAR = 2023;
+    public static final int EARLIEST_YEAR = 1900;
     private List<UFO> ufos = new ArrayList<>(List.of(
             UFO.builder()
                     .id(001)
@@ -69,7 +78,6 @@ public class UFOService
                     .longitude(-85.56)
                     .build()
     ));
-
     private List<Date> encounterDates = new ArrayList<>(List.of(
             Date.builder()
                     .yearSighted(2005)
@@ -81,8 +89,8 @@ public class UFOService
                     .build(),
             Date.builder()
                     .yearSighted(2000)
-                    .monthSighted(12)
-                    .daySighted(31)
+                    .monthSighted(NO_MO_YEAR)
+                    .daySighted(NUM_DAYS_MONTH)
                     .hourSighted(21)
                     .minuteSighted(0)
                     .findValue("20001231210")
@@ -105,40 +113,61 @@ public class UFOService
                     .build()
     ));
 
+    /**
+     * Retrieves all UFO objects
+     * @return all UFO objects
+     */
     // GET requests (read)
     public List<UFO> allUFOs()
     {
         return ufos;
     }
 
+    /**
+     * Retrieves all Location objects
+     * @return all Location objects
+     */
     public List<Location> allLocations()
     {
         return locations;
     }
 
+    /**
+     * Retrieves all Date objects
+     * @return all Date objects
+     */
     public List<Date> allDates()
     {
         return encounterDates;
     }
-    public List<Location> recordedLocations(){
-        return locations;
-    }
-    public List<Date> encounterDates(){
-        return encounterDates;
-    }
 
+    /**
+     * Retrieves a UFO object with a given id
+     * @param id the ID of the UFO object
+     * @return the UFO object with the given id
+     */
     public UFO findUFOById(int id){
         return ufos.stream().filter(ufo -> ufo.getId() == id)
                 .findFirst()
                 .orElse(null);
     }
 
+    /**
+     * Retrieves a Location object with a given city
+     * @param city the city in the Location object
+     * @return the Location with the given city
+     */
     public Location findLocByCity(String city){
         return locations.stream().filter(location -> location.getCity().equalsIgnoreCase(city))
                 .findFirst()
                 .orElse(null);
     }
 
+    /**
+     * Retrieves a Date object with a given findValue
+     * @param findValue the findValue in the Date object (YYYYMMDDHHMM)
+     * @return the Date object with the given findValue
+     */
     public Date findDateByValue(String findValue)
     {
         return encounterDates.stream().filter(date -> date.getFindValue().equals(findValue))
@@ -147,6 +176,11 @@ public class UFOService
     }
 
 
+    /**
+     * Creates a new UFO object
+     * @param newUFO the UFO object being created
+     * @return the newly created UFO object
+     */
     // POST requests (create)
     public UFO addUFO(UFO newUFO){
 
@@ -154,6 +188,13 @@ public class UFOService
         return newUFO;
     }
 
+    /**
+     * Adds a new UFO object with the given parameters
+     * @param id the UFO's id num
+     * @param shape the reported shape of the UFO
+     * @param description a description of the encounter
+     * @param encounterLength the length of the encounter in seconds
+     */
     public void addUFO(@RequestParam int id, @RequestParam String shape,
                       @RequestParam String description,
                       @RequestParam double encounterLength)
@@ -162,12 +203,25 @@ public class UFOService
         ufos.add(ufo);
     }
 
+    /**
+     * Creates a new Location object
+     * @param newLocation the Location object being created
+     * @return the newly created Location object
+     */
     public Location addLocation(Location newLocation){
 
         locations.add(newLocation);
         return newLocation;
     }
 
+    /**
+     * Creates a Location object with the given parameters
+     * @param city the Location's city
+     * @param state the Location's state
+     * @param country the Location's country
+     * @param latitude the Location's latitude coordinate
+     * @param longitude the Location's longitude coordinate
+     */
     public void addLocation(@RequestParam String city, @RequestParam String state,
                             @RequestParam String country, @RequestParam double latitude,
                             @RequestParam double longitude)
@@ -176,12 +230,25 @@ public class UFOService
         locations.add(location);
     }
 
+    /**
+     * Creates a new Date object
+     * @param encounterDate the encounter date being created
+     * @return the newly created Date object
+     */
     public Date addEncounterDate(Date encounterDate){
 
         encounterDates.add(encounterDate);
         return encounterDate;
     }
 
+    /**
+     * @param yearSighted the year the encounter took place in
+     * @param monthSighted the month the encounter took place in
+     * @param daySighted the day the encounter took place on
+     * @param hourSighted the hour the encounter took place during
+     * @param minuteSighted the minute the encounter took place on
+     * @param findValue a String that returns the Date in YYYYMMDDHHMM format
+     */
     public void addEncounterDate(@RequestParam int yearSighted, @RequestParam int monthSighted,
                                  @RequestParam int daySighted, @RequestParam int hourSighted,
                                  @RequestParam int minuteSighted, @RequestParam String findValue)
@@ -190,6 +257,11 @@ public class UFOService
         encounterDates.add(date);
     }
 
+    /**
+     * Updates a UFO object with new values
+     * @param updatedUFO the UFO object with updated values
+     * @return the updated UFO object
+     */
     // PUT requests (update)
     public UFO updateUFO(UFO updatedUFO)
     {
@@ -203,6 +275,11 @@ public class UFOService
         return updatedUFO;
     }
 
+    /**
+     * Updates a Location object with new values
+     * @param updatedLocation the Location object with updated values
+     * @return the updated Location object
+     */
     public Location updateLocation(Location updatedLocation)
     {
         Location found = findLocByCity(updatedLocation.getCity());
@@ -215,6 +292,11 @@ public class UFOService
         return updatedLocation;
     }
 
+    /**
+     * Updates a Date object with new values
+     * @param updatedDate the Location object with updated values
+     * @return the updated Date object
+     */
     public Date updateDate(Date updatedDate)
     {
         Date found = findDateByValue(updatedDate.getFindValue());
@@ -229,6 +311,10 @@ public class UFOService
         return updatedDate;
     }
 
+    /**
+     * Deletes a UFO object with a given id
+     * @param id the id of the UFO object to be deleted
+     */
     // DELETE requests (delete)
     public void deleteUFO(int id)
     {
@@ -239,6 +325,10 @@ public class UFOService
         );
     }
 
+    /**
+     * Deletes a Location object with a given id
+     * @param city the city of the Location object to be deleted
+     */
     public void deleteLocation(String city)
     {
         locations = new ArrayList<>(
@@ -248,6 +338,10 @@ public class UFOService
         );
     }
 
+    /**
+     * Deletes a Date object with a given findValue
+     * @param findValue the findValue (YYYYMMDDHHMM) of the Date object to be deleted
+     */
     public void deleteEncounterDate(String findValue)
     {
         encounterDates = new ArrayList<>(
@@ -257,21 +351,45 @@ public class UFOService
         );
     }
 
+    /**
+     * Returns true if there is a non-zero value for a given UFO object
+     * @param ufo the UFO object
+     * @return true if the UFO with a given is found
+     */
     public boolean isValidUFO(UFO ufo)
     {
         return ufo.getId() != 0;
     }
 
+    /**
+     * Returns true if the latitude/longitude coordinates are non-zero
+     * @param location the Location object
+     * @return true if the Location has coordinates
+     */
     public boolean isValidLocation(Location location)
     {
         return location.getLatitude() != 0 && location.getLongitude() !=0;
     }
 
+    /**
+     * Returns true if the Day, Month, and Year are possible values
+     * @param date the Date object
+     * @return true if the Date is within the given parameters
+     */
     public boolean isValidDate(Date date)
     {
-        return date.getDaySighted() > 0 && date.getDaySighted() < 32
-                && date.getMonthSighted() > 0 && date.getMonthSighted() < 13
-                && date.getYearSighted() < 2023 && date.getYearSighted() > 1900;
+        return date.getDaySighted() > 0 && date.getDaySighted() <= NUM_DAYS_MONTH
+                && date.getMonthSighted() > 0 && date.getMonthSighted() <= NO_MO_YEAR
+                && date.getYearSighted() < LATEST_YEAR && date.getYearSighted() > EARLIEST_YEAR;
     }
 
+    @Override
+    public String toString()
+    {
+        return "UFOService{" +
+                "ufos=" + ufos +
+                ", locations=" + locations +
+                ", encounterDates=" + encounterDates +
+                '}';
+    }
 }
