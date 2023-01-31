@@ -27,5 +27,5 @@ This site will take in data from a corgis dataset
 with information about ufo sightings including times, 
 locations, and descriptions. 
 
-UFO Sighting Database: [https://corgis-edu.github.io/corgis/json/ufo_sightings/](https://corgis-edu.github.io/corgis/json/ufo_sightings/)
+UFO Sighting Database: [https://corgis-edu.github.io/corgis/json/ufo_sightings/](https://corgis-edu.github.io/corgis/json/ufo_sightings/)\
 Web API Documentation: [https://documenter.getpostman.com/view/25429782/2s935isQxb](https://documenter.getpostman.com/view/25429782/2s935isQxb)
