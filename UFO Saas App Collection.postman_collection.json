@@ -1,0 +1,818 @@
+{
+	"info": {
+		"_postman_id": "5148ccaf-1a7a-456f-8e67-12aaf14b3547",
+		"name": "UFO Saas App Collection",
+		"description": "A mock API for tracking UFO sighting descriptions, tracking their locations, and the time/dates of the sightings.\n\n---\n\n**Author:** Keny Dutton-Gillespie\n\n**Class:** SDEV372\n\n**Quarter:** Winter 2023 Quarter\n\n---\n\n#### Endpoints:\n\n- **/all** - accesses all UFO records\n- **/locations** - accesses all Location records\n- **/encounters** - accesses all Date records\n- **/{id}** - accesses a specific UFO by its id\n- **/locations/{city}** - accesses a specific Location by its city\n- **/encounters/{findValue}** - accesses a specific Date by its findValue\n- **/add-ufo** - adds a new UFO object\n- **/add-loc** - adds a new Location object\n- **/add-date** - adds a new Date object\n- **/update-ufo** - updates an existing UFO object. found by its id\n- **/update-loc** -updates an existing Location object, found by its city\n- **/uodate-date** - updates an existing Date object, found by its findValue\n- **/del/{ufoId}** - deletes an existing UFO object, found by its ID\n- **/del/del-loc/{city}** - deletes an existing Location object, found by its city\n- **/del-date/{findValue}** - deletes an existing Date object, found by its findValue",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "25429782"
+	},
+	"item": [
+		{
+			"name": "GET requests",
+			"item": [
+				{
+					"name": "Successful",
+					"item": [
+						{
+							"name": "Get all UFOs",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/ufos/all",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"ufos",
+										"all"
+									]
+								},
+								"description": "Retrieves all recorded UFOs.\n\nResponses:\n\n- 200 (OK) if returned"
+							},
+							"response": []
+						},
+						{
+							"name": "UFO by ID (found)",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/ufos/2",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"ufos",
+										"2"
+									]
+								},
+								"description": "Retrieves a reported UFO that matches the path variable id\n\nResponse codes:\n\n- 200 (OK) - if the UFO is found\n- 404 (NOT FOUND) - if the UFO is not found"
+							},
+							"response": []
+						},
+						{
+							"name": "Get all locations",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/ufos/locations",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"ufos",
+										"locations"
+									]
+								},
+								"description": "Retrieves all recorded Locations.\n\nResponse codes:\n\n- 200 (OK) - if returned"
+							},
+							"response": []
+						},
+						{
+							"name": "Location by city (found)",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/ufos/locations/Rockford",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"ufos",
+										"locations",
+										"Rockford"
+									]
+								},
+								"description": "Returns a Location by the city.\n\nResponse codes:\n\n- 200 (OK) - if the city is found\n- 404 (NOT FOUND) - if the city is not found"
+							},
+							"response": []
+						},
+						{
+							"name": "Get all encounter dates",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/ufos/encounters",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"ufos",
+										"encounters"
+									]
+								},
+								"description": "Retreives all recorded encounter dates.\n\nResponses:\n\n- 200 (OK) - if returned"
+							},
+							"response": []
+						},
+						{
+							"name": "Encounters by date (found)",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/ufos/encounters/200505241830",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"ufos",
+										"encounters",
+										"200505241830"
+									]
+								},
+								"description": "Retrieves an Encounter Date by it's findValue (YYYYMMDDHHMM).\n\nResponse codes:\n\n- 200 (OK) - if the date is found\n- 404 (NOT FOUND) - if the date is not found"
+							},
+							"response": []
+						}
+					],
+					"description": "All GET requests that produce a 200 (OK) response."
+				},
+				{
+					"name": "Unsucessful",
+					"item": [
+						{
+							"name": "UFO by ID (not found)",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/ufos/8",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"ufos",
+										"8"
+									]
+								},
+								"description": "Returns a recorded UFO by ID.\n\nResponse codes:\n\n- 200 (OK) - if the UFO is found\n- 404 (NOT FOUND) - if the UFO id is not found"
+							},
+							"response": []
+						},
+						{
+							"name": "Location by city (not found)",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/ufos/locations/New Mexico",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"ufos",
+										"locations",
+										"New Mexico"
+									]
+								},
+								"description": "Returns a Location by the city.\n\nResponse codes:\n\n- 200 (OK) - if the city is found\n- 404 (NOT FOUND) - if the city is not found"
+							},
+							"response": []
+						},
+						{
+							"name": "Encounter by dates (not found)",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/ufos/encounters/2005052222",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"ufos",
+										"encounters",
+										"2005052222"
+									]
+								},
+								"description": "Retrieves an Encounter Date by it's value (YYYYMMDDHHMM).\n\nResponse codes:\n\n- 200 (OK) - if the date is found\n- 404 (NOT FOUND) - if the date is not found"
+							},
+							"response": []
+						}
+					],
+					"description": "All GET requests that produce a 404 (NOT FOUND) response."
+				}
+			],
+			"description": "All GET requests in the collections."
+		},
+		{
+			"name": "POST requests",
+			"item": [
+				{
+					"name": "Successful",
+					"item": [
+						{
+							"name": "Add a new UFO",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "    {\n        \"id\": 5,\n        \"shape\": \"oblong\",\n        \"description\": \"Flashing lights in the distance with a dark shape. Disappered behind cloud\",\n        \"encounterLength\": 18.0\n    }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/ufos/add-ufo",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"ufos",
+										"add-ufo"
+									]
+								},
+								"description": "Adds a new UFO object.\n\n---\n\nResponse codes:\n\n- 201 (CREATED) - if the UFO object was able to be added\n- 400 (BAD REQUEST) - if the UFO object was not able to be added, empty id field.\n    \n\n---\n\nHere is an example of a successful request body:"
+							},
+							"response": []
+						},
+						{
+							"name": "Add new location",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "\n    {\n        \"city\": \"wilmington\",\n        \"state\": \"OH\",\n        \"country\": \"US\",\n        \"latitude\": 39.4452778,\n        \"longitude\": -83.8286111\n    }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/ufos/add-loc",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"ufos",
+										"add-loc"
+									]
+								},
+								"description": "Adds a new location object.\n\n---\n\nResponse codes:\n\n- 201 (CREATED) - if the Location object was able to be added\n- 400 (NOT FOUND) - if the Location object was not able to be added, no latitude AND longitude added\n    \n\n---\n\nHere is an example of a successful request body:"
+							},
+							"response": []
+						},
+						{
+							"name": "Add a new date",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "   {\n        \"yearSighted\": 2008,\n        \"monthSighted\": 11,\n        \"daySighted\": 28,\n        \"hourSighted\": 13,\n        \"minuteSighted\": 30,\n        \"findValue\": \"200811281330\"\n    }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/ufos/add-date",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"ufos",
+										"add-date"
+									]
+								},
+								"description": "Adds a new encounter date object.\n\n---\n\nResponse codes:\n\n- 201 (CREATED) - if the encounter date was able to be added\n- 400 (BAD REQUEST) - if the encounter date was not able to be added, invalid date\n    \n\n---\n\nHere is an example of a successful request body:"
+							},
+							"response": []
+						}
+					],
+					"description": "All POST requests that produce a 201 (CREATED) response."
+				},
+				{
+					"name": "Unsuccessful",
+					"item": [
+						{
+							"name": "Add ufo (empty request)",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/ufos/add-ufo",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"ufos",
+										"add-ufo"
+									]
+								},
+								"description": "Adds a new UFO object.\n\n---\n\nExample of an empty request being sent.\n\n---\n\nResponse codes:\n\n- 201 (CREATED) - if the UFO was able to be added\n- 400 (BAD REQUEST) - if the UFO was not able to be added, no UFO id"
+							},
+							"response": []
+						},
+						{
+							"name": "Add new location (invalid request)",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "    {\n        \"city\": \"\",\n        \"state\": \"MS\",\n        \"country\": \"US\",\n        \"latitude\": 0,\n        \"longitude\": 0\n    }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/ufos/add-loc",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"ufos",
+										"add-loc"
+									]
+								},
+								"description": "Adds a new location object.\n\n---\n\nResponse codes:\n\n- 201 (CREATED) - if the Location object was able to be added\n- 400 (BAD REQUEST) - if the Location object was not able to be added, no latitude AND longitude values\n    \n\n---\n\nHere is an example request body where the longitude and latitude are not included in the request (invalid):"
+							},
+							"response": []
+						},
+						{
+							"name": "Add new date (invalid request)",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "   {\n        \"yearSighted\": 2005,\n        \"monthSighted\": 14,\n        \"daySighted\": 24,\n        \"hourSighted\": 18,\n        \"minuteSighted\": 30,\n        \"findValue\": \"200514241830\"\n    }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/ufos/add-date",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"ufos",
+										"add-date"
+									]
+								},
+								"description": "Adds a new encounter date object.\n\n---\n\nResponse codes:\n\n- Response codes:\n    - 201 (CREATED) - if the encounter date was able to be added\n    - 400 (BAD REQUEST) - if the encounter date was not able to be added, invalid date\n\n---\n\nHere is an example request body of an invalid request (there is no 14th month):"
+							},
+							"response": []
+						}
+					]
+				}
+			],
+			"description": "All POST requests in the collection."
+		},
+		{
+			"name": "PUT requests",
+			"item": [
+				{
+					"name": "Successful",
+					"item": [
+						{
+							"name": "Update UFO (found)",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"id\": 2,\n    \"shape\": \"changing\",\n    \"description\": \"We could observe red lights dancing across the underside red lights were very bright and very active.\",\n    \"encounterLength\": 22000.0\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/ufos/update-ufo",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"ufos",
+										"update-ufo"
+									]
+								},
+								"description": "Updates an exisiting UFO object, found by ID.\n\nHere is an example request body where the ID was able to be found successfully:\n\n---\n\nResponse codes:\n\n- 200 (OK) - if the UFO object was able to be updated\n- 404 (NOT FOUND) - if the UFO ID was not found\n    \n\nHere is an example request body where the ID was able to be found successfully:"
+							},
+							"response": []
+						},
+						{
+							"name": "Update location (found)",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"city\": \"Rockford\",\n    \"state\": \"IL\",\n    \"country\": \"US\",\n    \"latitude\": 42.2711,\n    \"longitude\": -89.0940\n} ",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/ufos/update-loc",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"ufos",
+										"update-loc"
+									]
+								},
+								"description": "Updates an exisiting Location object, found by city.\n\n---\n\nResponse codes:\n\n- 200 (OK) - if the Location object was able to be updated\n- 400 (BAD REQUEST) - if the update request was invalid, no latitude AND longitude values\n- 404 (NOT FOUND)- if the Location city was not found\n    \n\n---\n\nHere is an example request body where the city was found successfully:"
+							},
+							"response": []
+						},
+						{
+							"name": "Update date (found)",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "    {\n        \"yearSighted\": 1984,\n        \"monthSighted\": 3,\n        \"daySighted\": 22,\n        \"hourSighted\": 22,\n        \"minuteSighted\": 0,\n        \"findValue\": \"198401212100\"\n    }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/ufos/update-date",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"ufos",
+										"update-date"
+									]
+								},
+								"description": "Updates an exisiting Date object, found by its findValue (YYYYMMDDHHMM).\n\n---\n\nResponse codes:\n\n- 200 (OK) - if the Date object was able to be updated\n- 400 (BAD REQUEST) - if the update request was invalid, invalid date\n- 404 (NOT FOUND) - if the Date object findValue was not found\n    \n\n---\n\nHere is an example request body where the findValue was found successfully:"
+							},
+							"response": []
+						}
+					],
+					"description": "All POST requests that produce a 200 (OK) response."
+				},
+				{
+					"name": "Unsuccessful",
+					"item": [
+						{
+							"name": "Update UFO (not found)",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"id\": 16,\n    \"shape\": \"changing\",\n    \"description\": \"We could observe red lights dancing across the underside red lights were very bright and very active.\",\n    \"encounterLength\": 22000.0\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/ufos/update-ufo",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"ufos",
+										"update-ufo"
+									]
+								},
+								"description": "Updates an exisiting UFO object, found by ID\n\n---\n\nResponse codes:\n\n- 200 (OK) - if the UFO object was able to be updated\n- 404 (NOT FOUND) - if the UFO object was not found\n    \n\n---\n\nHere is an example request body where the ID could not be found:"
+							},
+							"response": []
+						},
+						{
+							"name": "Update location (not found)",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": " {\n        \"city\": \"Seattle\",\n        \"state\": \"WA\",\n        \"country\": \"US\",\n        \"latitude\": 23,\n        \"longitude\": -55\n    }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/ufos/update-loc",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"ufos",
+										"update-loc"
+									]
+								},
+								"description": "Updates an exisiting Location object, found by city.\n\n---\n\nResponse codes:\n\n- 200 (OK) - if the Location object was able to be updated\n- 400 (BAD REQUEST) - if the update request was invalid, no latitude AND longitude values\n- 404 (NOT FOUND)- if the Location city was not found\n    \n\n---\n\nHere is an example request body where the city could not be found:"
+							},
+							"response": []
+						},
+						{
+							"name": "Update location(invalid request)",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"city\": \"Rockford\",\n    \"state\": \"IL\",\n    \"country\": \"US\",\n    \"latitude\": 0,\n    \"longitude\": 0\n} ",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/ufos/update-loc",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"ufos",
+										"update-loc"
+									]
+								},
+								"description": "Updates an exisiting Location object, found by city.\n\n---\n\nResponse codes:\n\n- 200 (OK) - if the Location object was able to be updated\n- 400 (BAD REQUEST) - if the update request was invalid, no latitude AND longitude values\n- 404 (NOT FOUND)- if the Location city was not found\n    \n\n---\n\nHere is an example request body where the request was invalid (empty latitude AND longitude values):"
+							},
+							"response": []
+						},
+						{
+							"name": "Update date (invalid request)",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "    {\n        \"yearSighted\": 1984,\n        \"monthSighted\": 13,\n        \"daySighted\": 12,\n        \"hourSighted\": 22,\n        \"minuteSighted\": 0,\n        \"findValue\": \"198401212100\"\n    }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/ufos/update-date",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"ufos",
+										"update-date"
+									]
+								},
+								"description": "Updates an exisiting Date object, found by its findValue (YYYYMMDDHHMM).\n\n---\n\nResponse codes:\n\n- 200 (OK) - if the Date object was able to be updated\n- 400 (BAD REQUEST) - if the update request was invalid, invalid date\n- 404 (NOT FOUND) - if the Date object findValue was not found\n    \n\n---\n\nHere is an example request body where the findValue was found successfully but the updated dates were invalid (no 13th month):"
+							},
+							"response": []
+						},
+						{
+							"name": "Update date (not found)",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "    {\n        \"yearSighted\": 1984,\n        \"monthSighted\": 1,\n        \"daySighted\": 21,\n        \"hourSighted\": 21,\n        \"minuteSighted\": 0,\n        \"findValue\": \"198401212399\"\n    }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/ufos/update-date",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"ufos",
+										"update-date"
+									]
+								},
+								"description": "Updates an exisiting Date object, found by its findValue (YYYYMMDDHHMM).\n\n---\n\nResponse codes:\n\n- 200 (OK) - if the Date object was able to be updated\n- 400 (BAD REQUEST) - if the update request was invalid, invalid date\n- 404 (NOT FOUND) - if the Date object findValue was not found\n    \n\n---\n\nHere is an example request body where the findValue was not found:"
+							},
+							"response": []
+						}
+					],
+					"description": "All PUT requests that produce a 400 or 404 response"
+				}
+			],
+			"description": "All POST requests in the collection."
+		},
+		{
+			"name": "DELETE requests",
+			"item": [
+				{
+					"name": "Successful",
+					"item": [
+						{
+							"name": "Delete UFO by ID (found)",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/ufos/del/1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"ufos",
+										"del",
+										"1"
+									]
+								},
+								"description": "Deletes an exisiting UFO object, found by ID. ID of object to delete is added as a parameter.\n\n---\n\nHere is an example where the ID was able to be found successfully.\n\n---\n\nResponse codes:\n\n- 200 (OK) - if the UFO object was able to be deleted\n- 404 (NOT FOUND) - if the UFO ID was not found"
+							},
+							"response": []
+						},
+						{
+							"name": "Delete location by city (found)",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/ufos/del-loc/Erie",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"ufos",
+										"del-loc",
+										"Erie"
+									]
+								},
+								"description": "Deletes an exisiting Location object, found by city. City of object to delete is added as a parameter.\n\n---\n\nHere is an example where the city was able to be found successfully.\n\n---\n\nResponse codes:\n\n- 200 (OK )- if the Location object was able to be deleted\n- 404 (NOT FOUND) - if the Location city was not found"
+							},
+							"response": []
+						},
+						{
+							"name": "Delete date by findValue (found)",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/ufos/del-date/200505241830",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"ufos",
+										"del-date",
+										"200505241830"
+									]
+								},
+								"description": "Deletes an exisiting Date object, found by findValue. findValue of object to delete is added as a parameter.\n\n---\n\nHere is an example where the findValue was able to be found successfully.\n\n---\n\nResponse codes:\n\n- 200 (OK) - if the Date object was able to be deleted\n- 404 (NOT FOUND) - if the Date findValue was not found"
+							},
+							"response": []
+						}
+					],
+					"description": "All DELETE requests that produce a 200 (OK) response."
+				},
+				{
+					"name": "Unsuccessful",
+					"item": [
+						{
+							"name": "Delete UFO by ID (not found)",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/ufos/del/8",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"ufos",
+										"del",
+										"8"
+									]
+								},
+								"description": "Deletes an exisiting UFO object, found by ID. ID of object to delete is added as a parameter.\n\n---\n\nHere is an example where the ID was not able to be found.\n\n---\n\nResponse codes:\n\n- 200 (OK) - if the UFO object was able to be deleted\n- 404 (NOT FOUND) - if the UFO ID was not found"
+							},
+							"response": []
+						},
+						{
+							"name": "Delete location by city (not found)",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/ufos/del-loc/Bend",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"ufos",
+										"del-loc",
+										"Bend"
+									]
+								},
+								"description": "Deletes an exisiting Location object, found by city. City of object to delete is added as a parameter.\n\n---\n\nHere is an example where the city was not able to be found.\n\n---\n\nResponse codes:\n\n- 200 (OK) - if the Location object was able to be deleted\n- 404 (NOT FOUND) - if the Location city was not found"
+							},
+							"response": []
+						},
+						{
+							"name": "Delete date by findValue (not found)",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/ufos/del-date/200505249999",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"ufos",
+										"del-date",
+										"200505249999"
+									]
+								},
+								"description": "Deletes an exisiting Date object, found by findValue. findValue of object to delete is added as a parameter.\n\n---\n\nHere is an example where the findValue was not able to be found.\n\n---\n\nResponse codes:\n\n- 200 (OK) - if the Date object was able to be deleted\n- 404 (NOT FOUND) - if the Date findValue was not found"
+							},
+							"response": []
+						}
+					],
+					"description": "All DELETE requests that produce a 404 (NOT FOUND) response."
+				}
+			],
+			"description": "All DELETE requests in the collection."
+		}
+	]
+}
