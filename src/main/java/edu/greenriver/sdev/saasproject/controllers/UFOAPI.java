@@ -15,6 +15,7 @@ import java.util.List;
  * @author Keny Dutton-Gillespie
  * @version 1.0
  */
+@CrossOrigin(origins="*")
 @RestController
 @RequestMapping("ufos")
 public class UFOAPI
