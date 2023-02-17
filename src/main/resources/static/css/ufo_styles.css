@@ -1,6 +1,8 @@
 table{
     border: black solid 1px;
     padding: 3px;
+    background-color: dimgray;
+
 }
 
 td{
@@ -15,4 +17,56 @@ tr{
 
 input {
     margin: 3px;
+}
+
+body {
+    background-color: #1C1C1C;
+}
+
+h1{
+    color: greenyellow;
+}
+
+h2{
+    color: greenyellow;
+}
+
+button {
+    background-color: greenyellow;
+}
+
+form {
+    color: greenyellow;
+}
+
+input{
+    background-color: lightgray;
+}
+.container{
+    display: inline-grid;
+    grid-template-columns: 100px 100px 100px;
+    grid-template-rows: 50px 30px 100px 100px;
+    grid-template-areas:
+    "header header header"
+    "inst . ."
+    "sub db db"
+    "sub db db";
+    column-gap: 10px;
+    row-gap: 10px;
+}
+
+.header{
+    grid-area: header;
+}
+
+.instr{
+    grid-area: instr;
+}
+
+.sub{
+    grid-area: sub;
+}
+
+.db{
+    grid-area: db;
 }

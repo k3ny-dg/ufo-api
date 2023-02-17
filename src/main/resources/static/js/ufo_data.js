@@ -31,12 +31,10 @@ function showData(ufos)
         let ufo = ufos[i];
 
         let tr = document.createElement("tr");
-        table.appendChild(tr);
-        table.appendChild(tr);
-        table.appendChild(tr);
-        table.appendChild(tr);
-        table.appendChild(tr);
-        table.appendChild(tr);
+
+        for (let j = 0; j <= 6; j++) {
+            table.appendChild(tr);
+        }
 
         let id_td = document.createElement("td");
         let shape_td = document.createElement("td");
@@ -45,25 +43,22 @@ function showData(ufos)
         let edit_td = document.createElement("td");
         let del_td = document.createElement("td");
 
-        id_td.className = "id";
-        shape_td.className = "shape";
-        description_td.className = "description";
-        encounter_td.className = "encounter";
-        edit_td.className = "edit";
-        del_td.className = "del";
+        let editBtn = document.createElement('input');
+        editBtn.type = "button";
+        editBtn.value = "Update";
+        editBtn.onclick = handleUpdateRecord;
+
+        let delBtn = document.createElement('input');
+        delBtn.type = "button";
+        delBtn.value = "Delete";
+        delBtn.onclick = handleDeleteRecordSubmit;
 
         id_td.innerHTML = ufo.id;
         shape_td.innerHTML = ufo.shape;
         description_td.innerHTML = ufo.description;
         encounter_td.innerHTML = ufo.encounterLength;
-        edit_td.innerHTML = "Edit";
-        del_td.innerHTML = "Delete";
-
-        console.log(ufo.id);
-        console.log(ufo.shape);
-        console.log(ufo.description);
-        console.log(ufo.encounterLength);
-
+        edit_td.appendChild(editBtn);
+        del_td.appendChild(delBtn);
 
         tr.appendChild(id_td);
         tr.appendChild(shape_td);
@@ -107,3 +102,59 @@ function handleFormSubmit(event)
             console.log(response)
         });
 }
+
+function handleUpdateRecord(event) {
+
+    event.preventDefault();
+    console.log("Record updated!");
+
+    let updatedRecord = {
+        id: document.getElementById("ufo_id").value,
+        shape: document.getElementById("shape").value,
+        description: document.getElementById("description").value,
+        encounterLength: document.getElementById("e-length").value
+    };
+
+    console.log(updatedRecord);
+
+    let uri = "http://localhost:8080/ufos/update-ufo";
+    let params = {
+        method: "put",
+        mode: "cors",
+        body: JSON.stringify(updatedRecord),
+        headers: {
+            "Content-Type" : "application/json"
+        }
+    };
+
+    fetch(uri, params)
+        .then(function (response){
+            console.log(response)
+        });
+}
+
+
+//http://localhost:8080/ufos/del/{ufoId}
+function handleDeleteRecordSubmit(event)
+{
+    event.preventDefault();
+    console.log("Record deleted!")
+
+    let uri = "http://localhost:8080/ufos/del/"+ufoId;
+    let params = {
+        method: "delete",
+        mode: "cors",
+        headers: {
+            "Content-Type" : "application/json"
+        }
+    }
+    fetch(uri, params)
+        .then(function (response){
+            console.log(response);
+            return response.json();
+        })
+        .then(function (json){
+            console.log(json);
+        });
+}
+
