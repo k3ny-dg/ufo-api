@@ -5,48 +5,52 @@
         <title>UFO Database</title>
         <script src="js/ufo_data.js"></script>
         <link rel="stylesheet" href="css/ufo_styles.css">
+        <link rel="icon" type="image/x-icon" href="/images/ufo-icon.jpg">
     </head>
-    <body class="container">
-        <h1 class="header">UFO Database</h1>
-        <ul id="ufos">
+    <body>
+        <div class="container">
+            <div class="header">
+                <h1>UFO Database</h1>
+            </div>
+            <div class="db">
+                <table>
+                    <thead>
+                        <th>UFO ID</th>
+                        <th>Shape</th>
+                        <th>Description</th>
+                        <th>Encounter Length(seconds)</th>
+                        <th>Edit</th>
+                        <th>Delete</th>
+                    </thead>
+                    <tbody id="ufo-table">
+                    </tbody>
+                </table>
+            </div>
 
-        </ul>
+            <div class="sub">
+                <h2>Seen a UFO? <br> Report it here!</h2>
+                <form>
+                    <section>
+                        <label for="ufo_id">UFO ID</label>
+                        <input type="text" id="ufo_id">
+                    </section>
+                    <section>
+                        <label for="shape">Shape</label>
+                        <input type="text" id="shape">
+                    </section>
+                    <section>
+                        <label for="description" rows="8" cols="40">Description of encounter:</label>
+                        <textarea id="description"></textarea>
+                    </section>
+                    <section>
+                        <label for="e-length">Encounter length (seconds)</label>
+                        <input type="text" id="e-length">
+                    </section>
 
+                    <button id="add-btn" type="submit">Submit!</button>
+                </form>
+            </div>
 
-        <table class="db">
-            <thead>
-                <th>UFO ID</th>
-                <th>Shape</th>
-                <th>Description</th>
-                <th>Length of Encounter(seconds)</th>
-                <th>Edit</th>
-                <th>Delete</th>
-            </thead>
-            <tbody id="ufo-table">
-            </tbody>
-        </table>
-
-        <h2 class="instructions">Seen a UFO? Report it here!</h2>
-        <form class="sub">
-            <section>
-                <label for="ufo_id">UFO ID</label>
-                <input type="text" id="ufo_id">
-            </section>
-            <section>
-                <label for="shape">Shape</label>
-                <input type="text" id="shape">
-            </section>
-            <section>
-                <label for="description">Description of encounter:</label>
-                <input type="text" id="description">
-            </section>
-            <section>
-                <label for="e-length">Encounter length (in seconds)</label>
-                <input type="text" id="e-length">
-            </section>
-
-            <button id="add-btn" type="submit">Submit!</button>
-        </form>
-
+        </div>
     </body>
 </html>

@@ -1,30 +1,47 @@
-window.onload = function (){
-    loadData();
-    addFormHandler();
+window.onload = async function (){
+    await loadData();
+    await addFormHandler();
 }
 
-function loadData()
+async function loadData()
 {
     let uri= "http://localhost:8080/ufos/all";
     let params = {
         method: "get",
         mode: "cors"
     }
-    fetch(uri, params)
-        .then(function (response) {
-            console.log(response);
-            return response.json();
-        })
-        .then(function (json){
-        console.log(json);
+
+    try {
+        let response = await fetch(uri, params);
+        let json = await response.json();
+
+        if(!response.ok) {
+            console.log(json.description);
+            return;
+        }
         showData(json);
-    });
+    }
+
+    catch (error){
+        console.log(error);
+    }
+    //     .then(function (response) {
+    //         console.log(response);
+    //         return response.json();
+    //     })
+    //     .then(function (json){
+    //     console.log(json);
+    //     showData(json);
+    // });
 }
 
 function showData(ufos)
 {
 
     let table = document.getElementById("ufo-table");
+
+    let rows = document.querySelector("tr");
+    rows.remove();
 
     for (let i = 0; i < ufos.length; i++) {
 
@@ -43,10 +60,21 @@ function showData(ufos)
         let edit_td = document.createElement("td");
         let del_td = document.createElement("td");
 
+        id_td.className = "row" + ufo.id;
+        shape_td.className = "row" + ufo.id;
+        description_td.className = "row" + ufo.id;
+        encounter_td.className = "row" + ufo.id;
+        edit_td.className = "row" + ufo.id;
+        del_td.className = "row" + ufo.id;
+
+        edit_td.className = "non-input";
+        del_td.className = "non-input";
+
         let editBtn = document.createElement('input');
         editBtn.type = "button";
         editBtn.value = "Update";
-        editBtn.onclick = handleUpdateRecord;
+        //editBtn.onclick = handleUpdateRecord;
+        editBtn.onclick = makeEditable;
 
         let delBtn = document.createElement('input');
         delBtn.type = "button";
@@ -69,16 +97,18 @@ function showData(ufos)
     }
 }
 
-function addFormHandler()
+async function addFormHandler()
 {
     let formButton = document.getElementById("add-btn");
     formButton.onclick = handleFormSubmit;
 }
 
-function handleFormSubmit(event)
+async function handleFormSubmit(event)
 {
     event.preventDefault();
     console.log("Handled form submit!");
+
+    let table = document.getElementById("ufo-table");
 
     let newRecord = {
         id: document.getElementById("ufo_id").value,
@@ -97,13 +127,47 @@ function handleFormSubmit(event)
         }
     }
 
-    fetch(uri,params)
-        .then(function (response){
-            console.log(response)
-        });
+    try
+    {
+        let response = await fetch(uri, params);
+
+        if(!response.ok) {
+            console.log(response.description);
+            return;
+        }
+    await location.reload();
+
+    }
+    catch (error)
+    {
+        console.log(error);
+    }
+
 }
 
-function handleUpdateRecord(event) {
+function makeEditable()
+{
+
+    let table = document.getElementById("ufo-table");
+    let cells = table.getElementsByTagName("td");
+
+    for (let i = 0; i < cells.length; i++) {
+        cells[i].onclick = function () {
+
+                let input = document.createElement("input");
+                input.setAttribute('type', 'text');
+                input.value = this.innerHTML;
+                input.style.backgroundColor = "pink";
+
+                this.innerHTML = '';
+                this.append(input);
+                this.firstElementChild.select();
+            }
+        }
+}
+
+async function handleUpdateRecord(event)
+{
 
     event.preventDefault();
     console.log("Record updated!");
@@ -114,6 +178,7 @@ function handleUpdateRecord(event) {
         description: document.getElementById("description").value,
         encounterLength: document.getElementById("e-length").value
     };
+
 
     console.log(updatedRecord);
 
@@ -127,27 +192,61 @@ function handleUpdateRecord(event) {
         }
     };
 
-    fetch(uri, params)
-        .then(function (response){
-            console.log(response)
-        });
+    try
+    {
+        let response = await fetch(uri, params);
+
+        if(!response.ok) {
+            console.log(response.description);
+            //return;
+        }
+    }
+    catch (error)
+    {
+        console.log(error);
+    }
+
+    // fetch(uri, params)
+    //     .then(function (response){
+    //         console.log(response)
+    //     });
 }
 
 
 //http://localhost:8080/ufos/del/{ufoId}
-function handleDeleteRecordSubmit(event)
+async function handleDeleteRecordSubmit(event)
 {
     event.preventDefault();
     console.log("Record deleted!")
+
+    let del = event.target;
+    let tr = del.parentElement.parentElement;
+    let children = tr.children;
+    let ufoId = children[0].innerHTML;
 
     let uri = "http://localhost:8080/ufos/del/"+ufoId;
     let params = {
         method: "delete",
         mode: "cors",
-        headers: {
-            "Content-Type" : "application/json"
-        }
     }
+
+    try
+    {
+        let response = await fetch(uri, params);
+
+        if(!response.ok) {
+            console.log(response.description);
+            return;
+        }
+
+        await location.reload();
+    }
+    catch (error)
+    {
+        console.log(error);
+    }
+
+
     fetch(uri, params)
         .then(function (response){
             console.log(response);

@@ -1,8 +1,16 @@
+body{
+    font-family: "courier new";
+    background-color: #1C1C1C;
+    background-image: url("https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.livescience.com%2F26540-crop-circles.html&psig=AOvVaw1dLcxtcZ_cxgzKleKmqkf7&ust=1676871985122000&source=images&cd=vfe&ved=0CA8QjRxqFwoTCLCbqYzxoP0CFQAAAAAdAAAAABAE");
+    background-size: cover;
+}
+
 table{
     border: black solid 1px;
     padding: 3px;
-    background-color: dimgray;
-
+    background-color: gray;
+    border: solid whitesmoke;
+    border-radius: 10px;
 }
 
 td{
@@ -17,10 +25,6 @@ tr{
 
 input {
     margin: 3px;
-}
-
-body {
-    background-color: #1C1C1C;
 }
 
 h1{
@@ -42,17 +46,17 @@ form {
 input{
     background-color: lightgray;
 }
+
 .container{
     display: inline-grid;
-    grid-template-columns: 100px 100px 100px;
-    grid-template-rows: 50px 30px 100px 100px;
+
     grid-template-areas:
     "header header header"
-    "inst . ."
     "sub db db"
     "sub db db";
-    column-gap: 10px;
+    column-gap: 70px;
     row-gap: 10px;
+    margin: 25px 100px 25px 100px;
 }
 
 .header{
@@ -65,8 +69,23 @@ input{
 
 .sub{
     grid-area: sub;
+    background-color: gray;
+    padding: 20px;
+    border: whitesmoke solid;
+    border-radius: 10px;
 }
 
 .db{
     grid-area: db;
+}
+
+button{
+    margin-top: 18px;
+    font-family: "courier new"
+}
+
+input{
+    margin-top: 10px;
+    font-family: "courier new";
+    display: block;
 }
