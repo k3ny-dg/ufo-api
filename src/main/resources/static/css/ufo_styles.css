@@ -89,3 +89,8 @@ input{
     font-family: "courier new";
     display: block;
 }
+
+textarea{
+    display: block;
+    background-color: lightgray;
+}

@@ -1,11 +1,10 @@
-window.onload = async function (){
+window.onload = async function () {
     await loadData();
     await addFormHandler();
 }
 
-async function loadData()
-{
-    let uri= "http://localhost:8080/ufos/all";
+async function loadData() {
+    let uri = "http://localhost:8080/ufos/all";
     let params = {
         method: "get",
         mode: "cors"
@@ -15,28 +14,17 @@ async function loadData()
         let response = await fetch(uri, params);
         let json = await response.json();
 
-        if(!response.ok) {
+        if (!response.ok) {
             console.log(json.description);
             return;
         }
         showData(json);
-    }
-
-    catch (error){
+    } catch (error) {
         console.log(error);
     }
-    //     .then(function (response) {
-    //         console.log(response);
-    //         return response.json();
-    //     })
-    //     .then(function (json){
-    //     console.log(json);
-    //     showData(json);
-    // });
 }
 
-function showData(ufos)
-{
+function showData(ufos) {
 
     let table = document.getElementById("ufo-table");
 
@@ -110,18 +98,14 @@ function showData(ufos)
     }
 }
 
-async function addFormHandler()
-{
+async function addFormHandler() {
     let formButton = document.getElementById("add-btn");
     formButton.onclick = handleFormSubmit;
 }
 
-async function handleFormSubmit(event)
-{
+async function handleFormSubmit(event) {
     event.preventDefault();
     console.log("Handled form submit!");
-
-    let table = document.getElementById("ufo-table");
 
     let newRecord = {
         id: document.getElementById("ufo_id").value,
@@ -140,56 +124,43 @@ async function handleFormSubmit(event)
         }
     }
 
-    try
-    {
+    try {
         let response = await fetch(uri, params);
 
-        if(!response.ok) {
+        if (!response.ok) {
             console.log(response.description);
             return;
         }
-    await location.reload();
+        await location.reload();
 
-    }
-    catch (error)
-    {
+    } catch (error) {
         console.log(error);
     }
 
 }
 
-function makeEditable()
-{
+function makeEditable() {
 
-        $(document).on('click', '.update', function (){
-            $(this).parents().siblings('td.data').each(function () {
+    $(document).on('click', '.update', function () {
+        $(this).parents().siblings('td.data').each(function () {
             let cellContent = $(this).html();
-            $(this).html('<input id="' +  $(this).attr('id') +' _up"' + ' value="' + cellContent + '" />');
-                //console.log("Id: " + $(this).attr('id'));
+            $(this).html('<input id="' + $(this).attr('id') + ' _up"' + ' value="' + cellContent + '" />');
         });
-            //console.log($(this).parent().siblings('td.delete'));
-            let del = $(this).parent().siblings('td.delete').attr("id");
 
-            console.log(del);
+        let del = $(this).parent().siblings('td.delete').attr("id");
 
-            document.getElementById(del).style.display = "none";
-                $(this).hide();
-                // document.getElementById(del).style.display = "none";
-                $(this).children('input.update').hide();
-                //console.log("Children: " + $(this).children().attr('id'));
-
+        document.getElementById(del).style.display = "none";
+        $(this).hide();
+        $(this).children('input.update').hide();
     });
 }
 
-async function handleUpdateRecord(event)
-{
+async function handleUpdateRecord(event) {
 
     event.preventDefault();
     console.log("Record updated!");
 
     let childArray = $(this).parent().siblings().children().toArray();
-
-   // console.log(childArray);
 
     let ufoId = childArray[0].value;
     let ufoShape = childArray[1].value;
@@ -219,30 +190,26 @@ async function handleUpdateRecord(event)
         mode: "cors",
         body: JSON.stringify(updatedRecord),
         headers: {
-            "Content-Type" : "application/json"
+            "Content-Type": "application/json"
         }
     };
 
-    try
-    {
+    try {
         let response = await fetch(uri, params);
 
-        if(!response.ok) {
+        if (!response.ok) {
             console.log(response.description);
             //return;
         }
         await location.reload();
-    }
-    catch (error)
-    {
+    } catch (error) {
         console.log(error);
     }
 }
 
 
 //http://localhost:8080/ufos/del/{ufoId}
-async function handleDeleteRecordSubmit(event)
-{
+async function handleDeleteRecordSubmit(event) {
     event.preventDefault();
     console.log("Record deleted!")
 
@@ -251,36 +218,23 @@ async function handleDeleteRecordSubmit(event)
     let children = tr.children;
     let ufoId = children[0].innerHTML;
 
-    let uri = "http://localhost:8080/ufos/del/"+ufoId;
+    let uri = "http://localhost:8080/ufos/del/" + ufoId;
     let params = {
         method: "delete",
         mode: "cors",
     }
 
-    try
-    {
+    try {
         let response = await fetch(uri, params);
 
-        if(!response.ok) {
+        if (!response.ok) {
             console.log(response.description);
             return;
         }
 
         await location.reload();
-    }
-    catch (error)
-    {
+    } catch (error) {
         console.log(error);
     }
-
-
-    fetch(uri, params)
-        .then(function (response){
-            console.log(response);
-            return response.json();
-        })
-        .then(function (json){
-            console.log(json);
-        });
 }
 
