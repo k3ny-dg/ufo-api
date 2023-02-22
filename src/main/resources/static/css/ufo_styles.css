@@ -1,36 +1,46 @@
-body{
+body {
     font-family: "courier new", serif;
     background-color: #1C1C1C;
     background-size: cover;
+    padding: 20px;
 }
 
-table{
+table {
     padding: 3px;
     background-color: gray;
-    border: solid whitesmoke 1px;
+    border: solid whitesmoke 2px;
     border-radius: 10px;
+    box-shadow: cyan 2px 2px 30px 2px;
 }
 
-td{
+td {
     border: black solid 1px;
-    padding: 3px;
+    padding: 3px 3px 3px 10px;
 }
 
-tr{
+label {
+    text-shadow: black 1px 1px;
+}
+
+
+tr {
     border: black solid 1px;
     padding: 3px;
 }
 
 input {
     margin: 3px;
+    border-radius: 3px;
+
 }
 
-h1{
+h1 {
     color: greenyellow;
 }
 
-h2{
+h2 {
     color: greenyellow;
+    text-shadow: black 1px 1px 1px;
 }
 
 button {
@@ -41,11 +51,11 @@ form {
     color: greenyellow;
 }
 
-input{
+input {
     background-color: lightgray;
 }
 
-.container{
+.container {
     display: inline-grid;
 
     grid-template-areas:
@@ -57,15 +67,33 @@ input{
     margin: 25px 100px 25px 100px;
 }
 
-.header{
+.header {
     grid-area: header;
+    padding: 10px 16px;
+    background: #555;
+    color: #f1f1f1;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    margin-bottom: 45px;
+    text-align: center;
+    text-shadow: 0px 0px 2px black;
+    font-size: 2em;
+    border-radius: 15px;
+    box-shadow: 10px 10px 60px 5px lime;
+    background: url("../images/ufo_bbc.jpeg") center;
+    background-size: cover;
+    border: 1px #1a5c20 solid;
+
 }
 
-.instr{
-    grid-area: instr;
+.sticky {
+    position: fixed;
+    top: 0;
+    width: 100%
 }
 
-.sub{
+.sub {
     grid-area: sub;
     background-color: gray;
     padding: 20px;
@@ -73,36 +101,49 @@ input{
     border-radius: 10px;
 }
 
-.db{
+.db {
     grid-area: db;
 }
 
-button{
+button {
     margin-top: 18px;
     font-family: "courier new", serif;
 }
 
-input{
+input {
     margin-top: 10px;
     font-family: "courier new", serif;
     display: block;
 }
 
-input[type=button]{
+input[type=button] {
     margin-left: 15px;
     margin-right: 15px;
     margin-bottom: 10px;
     padding: 3px;
+    border-radius: 3px;
 }
 
 
-input[type=text]{
+input[type=text] {
     width: 20em;
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 
-textarea{
+textarea {
     display: block;
     background-color: lightgray;
     height: 8em;
     width: 21em;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+#btn-holder {
+    align-content: center;
+}
+
+.sub {
+    box-shadow: cyan 2px 2px 30px 2px;
 }

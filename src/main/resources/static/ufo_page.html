@@ -1,57 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <title>UFO Database</title>
-        <script src="js/ufo_data.js"></script>
-        <link rel="stylesheet" href="css/ufo_styles.css">
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"> </script>
-        <link rel="icon" type="image/x-icon" href="/images/ufo-icon.jpg">
-    </head>
-    <body>
-        <div class="container">
-            <div class="header">
-                <h1>UFO Database</h1>
-            </div>
-            <div class="db">
-                <table>
-                    <thead>
-                        <th>UFO ID</th>
-                        <th>Shape</th>
-                        <th>Description</th>
-                        <th>Encounter Length(seconds)</th>
-                        <th>Edit</th>
-                        <th>Delete</th>
-                    </thead>
-                    <tbody id="ufo-table">
-                    </tbody>
-                </table>
-            </div>
+<head>
+    <meta charset="UTF-8">
+    <title>UFO Database</title>
+    <script src="js/ufo_data.js"></script>
+    <link rel="stylesheet" href="css/ufo_styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link rel="icon" type="image/x-icon" href="/images/ufo-icon.jpg">
+</head>
+<body>
+<div class="container">
+    <div id="header" class="header">
+        <h1>UFO Database</h1>
+    </div>
+    <div class="db">
+        <table>
+            <thead>
+            <th>UFO ID</th>
+            <th>Shape</th>
+            <th>Description</th>
+            <th>Encounter Length(seconds)</th>
+            <th>Edit</th>
+            <th>Delete</th>
+            </thead>
+            <tbody id="ufo-table">
+            </tbody>
+        </table>
+    </div>
 
-            <div class="sub">
-                <h2>Seen a UFO? <br> Report it here!</h2>
-                <form>
-                    <section>
-                        <label for="ufo_id">UFO ID</label>
-                        <input type="text" id="ufo_id">
-                    </section>
-                    <section>
-                        <label for="shape">Shape</label>
-                        <input type="text" id="shape">
-                    </section>
-                    <section>
-                        <label for="description">Description of encounter:</label>
-                        <textarea id="description"></textarea>
-                    </section>
-                    <section>
-                        <label for="e-length">Encounter length (seconds)</label>
-                        <input type="text" id="e-length">
-                    </section>
-
-                    <button id="add-btn" type="submit">Submit!</button>
-                </form>
+    <div class="sub">
+        <h2>Seen a UFO? <br> Report it here!</h2>
+        <form>
+            <section>
+                <label for="ufo_id">UFO ID</label>
+                <input type="text" id="ufo_id">
+            </section>
+            <section>
+                <label for="shape">Shape</label>
+                <input type="text" id="shape">
+            </section>
+            <section>
+                <label for="description">Description of encounter:</label>
+                <textarea id="description"></textarea>
+            </section>
+            <section>
+                <label for="e-length">Encounter length (seconds)</label>
+                <input type="text" id="e-length">
+            </section>
+            <div id="btn-holder">
+                <button id="add-btn" type="submit">Submit!</button>
             </div>
+        </form>
+    </div>
 
-        </div>
-    </body>
+</div>
+</body>
 </html>

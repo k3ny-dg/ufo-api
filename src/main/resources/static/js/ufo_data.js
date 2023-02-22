@@ -29,7 +29,6 @@ function showData(ufos) {
     let table = document.getElementById("ufo-table");
 
     let rows = document.querySelector("tr");
-    rows.remove();
 
     for (let i = 0; i < ufos.length; i++) {
 
@@ -107,6 +106,8 @@ async function handleFormSubmit(event) {
     event.preventDefault();
     console.log("Handled form submit!");
 
+    let table = document.getElementById("ufo-table");
+
     let newRecord = {
         id: document.getElementById("ufo_id").value,
         shape: document.getElementById("shape").value,
@@ -131,7 +132,9 @@ async function handleFormSubmit(event) {
             console.log(response.description);
             return;
         }
-        await location.reload();
+
+        await $("#ufo-table tr").remove();
+        await loadData();
 
     } catch (error) {
         console.log(error);
@@ -201,7 +204,10 @@ async function handleUpdateRecord(event) {
             console.log(response.description);
             //return;
         }
-        await location.reload();
+
+        await $("#ufo-table tr").remove();
+        await loadData();
+
     } catch (error) {
         console.log(error);
     }
@@ -232,7 +238,9 @@ async function handleDeleteRecordSubmit(event) {
             return;
         }
 
-        await location.reload();
+        await $("#ufo-table tr").remove();
+        await loadData();
+
     } catch (error) {
         console.log(error);
     }
