@@ -60,26 +60,38 @@ function showData(ufos)
         let edit_td = document.createElement("td");
         let del_td = document.createElement("td");
 
-        id_td.className = "row" + ufo.id;
-        shape_td.className = "row" + ufo.id;
-        description_td.className = "row" + ufo.id;
-        encounter_td.className = "row" + ufo.id;
-        edit_td.className = "row" + ufo.id;
-        del_td.className = "row" + ufo.id;
+        id_td.id = "id" + ufo.id;
+        shape_td.id = "shape" + ufo.id;
+        description_td.id = "desc" + ufo.id;
+        encounter_td.id = "encounter" + ufo.id;
+        edit_td.id = "edit" + ufo.id;
+        del_td.id = "del" + ufo.id;
 
-        edit_td.className = "non-input";
-        del_td.className = "non-input";
+        id_td.className = 'data';
+        shape_td.className = 'data';
+        description_td.className = 'data';
+        encounter_td.className = 'data';
+        edit_td.className = 'edit';
+        del_td.className = 'delete';
+
 
         let editBtn = document.createElement('input');
         editBtn.type = "button";
         editBtn.value = "Update";
-        //editBtn.onclick = handleUpdateRecord;
+        editBtn.className = 'update';
         editBtn.onclick = makeEditable;
 
         let delBtn = document.createElement('input');
         delBtn.type = "button";
         delBtn.value = "Delete";
         delBtn.onclick = handleDeleteRecordSubmit;
+        delBtn.className = "del";
+
+        let saveBtn = document.createElement('input');
+        saveBtn.type = "button";
+        saveBtn.value = "Save";
+        saveBtn.onclick = handleUpdateRecord;
+        saveBtn.className = 'save';
 
         id_td.innerHTML = ufo.id;
         shape_td.innerHTML = ufo.shape;
@@ -87,6 +99,7 @@ function showData(ufos)
         encounter_td.innerHTML = ufo.encounterLength;
         edit_td.appendChild(editBtn);
         del_td.appendChild(delBtn);
+        edit_td.appendChild(saveBtn);
 
         tr.appendChild(id_td);
         tr.appendChild(shape_td);
@@ -148,22 +161,24 @@ async function handleFormSubmit(event)
 function makeEditable()
 {
 
-    let table = document.getElementById("ufo-table");
-    let cells = table.getElementsByTagName("td");
+        $(document).on('click', '.update', function (){
+            $(this).parents().siblings('td.data').each(function () {
+            let cellContent = $(this).html();
+            $(this).html('<input id="' +  $(this).attr('id') +' _up"' + ' value="' + cellContent + '" />');
+                //console.log("Id: " + $(this).attr('id'));
+        });
+            //console.log($(this).parent().siblings('td.delete'));
+            let del = $(this).parent().siblings('td.delete').attr("id");
 
-    for (let i = 0; i < cells.length; i++) {
-        cells[i].onclick = function () {
+            console.log(del);
 
-                let input = document.createElement("input");
-                input.setAttribute('type', 'text');
-                input.value = this.innerHTML;
-                input.style.backgroundColor = "pink";
+            document.getElementById(del).style.display = "none";
+                $(this).hide();
+                // document.getElementById(del).style.display = "none";
+                $(this).children('input.update').hide();
+                //console.log("Children: " + $(this).children().attr('id'));
 
-                this.innerHTML = '';
-                this.append(input);
-                this.firstElementChild.select();
-            }
-        }
+    });
 }
 
 async function handleUpdateRecord(event)
@@ -172,11 +187,27 @@ async function handleUpdateRecord(event)
     event.preventDefault();
     console.log("Record updated!");
 
+    let childArray = $(this).parent().siblings().children().toArray();
+
+   // console.log(childArray);
+
+    let ufoId = childArray[0].value;
+    let ufoShape = childArray[1].value;
+    let ufoDesc = childArray[2].value;
+    let ufoEncounter = childArray[3].value;
+
+
+    console.log("UFO: " + ufoId);
+    console.log("Shape: " + ufoShape);
+    console.log("Desc: " + ufoDesc);
+    console.log("Encounter: " + ufoEncounter);
+
+
     let updatedRecord = {
-        id: document.getElementById("ufo_id").value,
-        shape: document.getElementById("shape").value,
-        description: document.getElementById("description").value,
-        encounterLength: document.getElementById("e-length").value
+        id: ufoId,
+        shape: ufoShape,
+        description: ufoDesc,
+        encounterLength: ufoEncounter
     };
 
 
@@ -200,16 +231,12 @@ async function handleUpdateRecord(event)
             console.log(response.description);
             //return;
         }
+        await location.reload();
     }
     catch (error)
     {
         console.log(error);
     }
-
-    // fetch(uri, params)
-    //     .then(function (response){
-    //         console.log(response)
-    //     });
 }
 
 
