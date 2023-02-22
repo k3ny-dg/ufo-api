@@ -28,8 +28,6 @@ function showData(ufos) {
 
     let table = document.getElementById("ufo-table");
 
-    let rows = document.querySelector("tr");
-
     for (let i = 0; i < ufos.length; i++) {
 
         let ufo = ufos[i];
@@ -105,8 +103,6 @@ async function addFormHandler() {
 async function handleFormSubmit(event) {
     event.preventDefault();
     console.log("Handled form submit!");
-
-    let table = document.getElementById("ufo-table");
 
     let newRecord = {
         id: document.getElementById("ufo_id").value,
