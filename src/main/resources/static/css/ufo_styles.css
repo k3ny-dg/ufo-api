@@ -1,15 +1,13 @@
 body{
-    font-family: "courier new";
+    font-family: "courier new", serif;
     background-color: #1C1C1C;
-    background-image: url("https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.livescience.com%2F26540-crop-circles.html&psig=AOvVaw1dLcxtcZ_cxgzKleKmqkf7&ust=1676871985122000&source=images&cd=vfe&ved=0CA8QjRxqFwoTCLCbqYzxoP0CFQAAAAAdAAAAABAE");
     background-size: cover;
 }
 
 table{
-    border: black solid 1px;
     padding: 3px;
     background-color: gray;
-    border: solid whitesmoke;
+    border: solid whitesmoke 1px;
     border-radius: 10px;
 }
 
@@ -81,16 +79,30 @@ input{
 
 button{
     margin-top: 18px;
-    font-family: "courier new"
+    font-family: "courier new", serif;
 }
 
 input{
     margin-top: 10px;
-    font-family: "courier new";
+    font-family: "courier new", serif;
     display: block;
+}
+
+input[type=button]{
+    margin-left: 15px;
+    margin-right: 15px;
+    margin-bottom: 10px;
+    padding: 3px;
+}
+
+
+input[type=text]{
+    width: 20em;
 }
 
 textarea{
     display: block;
     background-color: lightgray;
+    height: 8em;
+    width: 21em;
 }
