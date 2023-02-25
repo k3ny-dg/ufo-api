@@ -148,7 +148,7 @@ async function handleFormSubmit(event) {
 }
 
 
-// Source: https://learn.jquery.com/using-jquery-core/traversing/ <-- Looking at the siblings/parents/children relationships
+// jQuery traversal reference: https://learn.jquery.com/using-jquery-core/traversing/
 // jQuery .click() https://api.jquery.com/click/
 function makeEditable() {
 
@@ -238,18 +238,11 @@ async function handleDeleteRecordSubmit(event) {
     event.preventDefault();
     console.log("Record deleted!")
 
-    // grab the target
-    let del = event.target;
+    let rows = $(this).parent().siblings();
+    console.log(rows);
+    let ufoId = rows[0].innerHTML;
 
-    // move up to the target's grandparent
-    let tr = del.parentElement.parentElement;
-
-    // grab the grandparent's (tr) children (tds)
-    let children = tr.children;
-
-    // assign the first child as the id of the record to be deleted
-    let ufoId = children[0].innerHTML;
-
+    console.log(ufoId);
     // delete the requested record
     let uri = "http://localhost:8080/ufos/del/" + ufoId;
     let params = {
