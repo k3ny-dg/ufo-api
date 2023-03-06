@@ -1,6 +1,51 @@
 window.onload = async function () {
     await loadData();
     await addFormHandler();
+    await addReportFormHandler();
+    await loadImageOfDay();
+}
+
+async function loadImageOfDay() {
+
+    let uri = "https://api.nasa.gov/planetary/apod?api_key=YbV2JwjaHfLqGxsJqThZMrWEWUlutAHIpdgjQSWX";
+    let params = {
+        method: "get",
+        mode: "cors"
+    }
+
+    try {
+        let response = await fetch(uri, params);
+        let json = await response.json();
+
+        if (!response.ok) {
+            console.log(json.description);
+            return;
+        }
+        await displayImage(json);
+    } catch (error){
+        console.log(error);
+    }
+}
+
+async function loadSpaceReports(num) {
+
+    let uri = "https://api.spaceflightnewsapi.net/v3/reports?_limit=" + num;
+    let params = {
+        method: "get",
+        mode: "cors"
+    }
+
+    try {
+        let response = await fetch(uri, params);
+        let json = await response.json();
+
+        if (!response.ok){
+            console.log(json.description);
+        }
+        await showReports(json);
+            } catch (error) {
+        console.log(error);
+    }
 }
 
 async function loadData() {
@@ -23,6 +68,55 @@ async function loadData() {
         console.log(error);
     }
 }
+
+async function displayImage(nasa) {
+
+    let daily = document.getElementById("daily-img");
+
+    let img = document.createElement("img");
+
+    let imgSrc = nasa.url;
+    img.setAttribute("src", imgSrc);
+    img.setAttribute("id", "nasa-img");
+    img.classList.add("daily");
+    console.log(img);
+    daily.appendChild(img);
+}
+
+async function showReports(reports) {
+
+    clearReports();
+    let spaceReports = document.getElementById("view-reports");
+
+    for (let i = 0; i < reports.length; i++) {
+
+        let report = reports[i];
+
+        let title = document.createElement("h3");
+        title.innerHTML = report.title;
+        title.classList.add ("nasa-report");
+
+        let urlDiv = document.createElement("div");
+        urlDiv.classList.add("url-div");
+        let url = document.createElement("a");
+        url.innerHTML = report.url;
+        url.setAttribute("href", report.url);
+        url.setAttribute("target", "_blank")
+
+        let repSummary = document.createElement("p");
+        repSummary.innerHTML = report.summary;
+        repSummary.classList.add ("nasa-report");
+
+        spaceReports.appendChild(title);
+        spaceReports.appendChild(repSummary);
+        spaceReports.appendChild(urlDiv);
+        urlDiv.appendChild(url);
+
+        let hrBreak = document.createElement("hr");
+        spaceReports.appendChild(hrBreak);
+    }
+}
+
 
 function showData(ufos) {
 
@@ -106,6 +200,25 @@ function showData(ufos) {
 async function addFormHandler() {
     let formButton = document.getElementById("add-btn");
     formButton.onclick = handleFormSubmit;
+
+}
+
+async function addReportFormHandler() {
+    let formButton = document.getElementById("report-btn");
+    formButton.onclick = handleReportSubmit;
+}
+
+async function handleReportSubmit() {
+    event.preventDefault();
+    console.log("Gathering reports!")
+
+    let numReports = document.getElementById("num").value;
+
+
+    console.log("Number of reports: " + numReports);
+
+    await loadSpaceReports(numReports);
+
 }
 
 async function handleFormSubmit(event) {
@@ -144,7 +257,6 @@ async function handleFormSubmit(event) {
     } catch (error) {
         console.log(error);
     }
-
 }
 
 
@@ -266,3 +378,12 @@ async function handleDeleteRecordSubmit(event) {
     }
 }
 
+function clearReports(){
+
+    let container = document.getElementById("view-reports");
+
+    while (container.firstChild) {
+       container.firstChild.remove()
+    }
+
+}
