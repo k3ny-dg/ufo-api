@@ -29,3 +29,10 @@ locations, and descriptions.
 
 UFO Sighting Database: [https://corgis-edu.github.io/corgis/json/ufo_sightings/](https://corgis-edu.github.io/corgis/json/ufo_sightings/)\
 Web API Documentation: [https://documenter.getpostman.com/view/25429782/2s935isQxb](https://documenter.getpostman.com/view/25429782/2s935isQxb)
+
+_____
+
+## Public APIs Incorporated
+
+NASA Astronomy Photo of the Day (APOD): [https://api.nasa.gov/](https://api.nasa.gov/)\
+Space Flight News API: [https://api.spaceflightnewsapi.net/documentation#/](https://api.spaceflightnewsapi.net/documentation#/)
