@@ -5,6 +5,7 @@ window.onload = async function () {
     await loadImageOfDay();
 }
 
+// load in NASA's Astronomy Photo of the Day
 async function loadImageOfDay() {
 
     let uri = "https://api.nasa.gov/planetary/apod?api_key=YbV2JwjaHfLqGxsJqThZMrWEWUlutAHIpdgjQSWX";
@@ -27,6 +28,7 @@ async function loadImageOfDay() {
     }
 }
 
+// Load a given number of ISS Daily report from Space Flight News
 async function loadSpaceReports(num) {
 
     let uri = "https://api.spaceflightnewsapi.net/v3/reports?_limit=" + num;
@@ -48,6 +50,7 @@ async function loadSpaceReports(num) {
     }
 }
 
+// load in data from our UFO API
 async function loadData() {
     let uri = "http://localhost:8080/ufos/all";
     let params = {
@@ -69,6 +72,7 @@ async function loadData() {
     }
 }
 
+// display the loaded in NASA astronomy image
 async function displayImage(nasa) {
 
     let daily = document.getElementById("daily-img");
@@ -83,6 +87,7 @@ async function displayImage(nasa) {
     daily.appendChild(img);
 }
 
+// display the loaded in reports
 async function showReports(reports) {
 
     clearReports();
@@ -117,7 +122,7 @@ async function showReports(reports) {
     }
 }
 
-
+// display the ufo data
 function showData(ufos) {
 
     let table = document.getElementById("ufo-table");
