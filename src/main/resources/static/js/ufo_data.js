@@ -52,7 +52,7 @@ async function loadSpaceReports(num) {
 
 // load in data from our UFO API
 async function loadData() {
-    let uri = "http://localhost:8080/ufos/all";
+    let uri = "http://34.71.224.198:8080/ufos/all";
     let params = {
         method: "get",
         mode: "cors"
